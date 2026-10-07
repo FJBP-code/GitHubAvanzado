@@ -1,0 +1,17 @@
+name: Prueba Tokens
+on: [push]
+
+jobs:
+  comparar:
+    runs-on: self-hosted
+    steps:
+      - name: Comparar DEV_TOKEN
+        env:
+          GITHUB_SECRET: ${{ secrets.DEV_TOKEN }}
+        run: |
+          if ($env:GITHUB_SECRET -eq $env:LOCAL_DEV_TOKEN) {
+            Write-Host "¡Éxito! Los tokens coinciden perfectamente."
+          } else {
+            Write-Host "Fallo: Los tokens no coinciden."
+            exit 1
+          }
